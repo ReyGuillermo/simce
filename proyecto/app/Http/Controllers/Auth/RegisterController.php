@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\Ssolicitante;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -52,6 +53,9 @@ class RegisterController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
+            'NuiSot' => 'required|string|min:7|max:12|unique:tsolicitante',
+            'DirSot' => 'required|string|min:10|max:175',
+            'TelSot' => 'required|string|min:10|max:75',
         ]);
     }
 
@@ -63,10 +67,38 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        /*return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+        */ 
+        User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
+        ]);
+        return ['email' => $data['email'],
+        'password' =>$data['password'],];
+        /*
+        $TUser=new User;
+        $TUser->name=$data['name'];
+        $TUser->email=$data['email'];
+        $TUser->password=Hash::make($data['password']);
+        $TUser->save();
+        $TSol=new Ssolicitante;
+        $TSol->IdUseSot=$TUser->id;
+        $TSol->NuiSot=$data['NuiSot'];
+        $TSol->RazSot=$data['name'];
+        $TSol->DirSot=$data['DirSot'];
+        $TSol->EmaSot=$data['email'];
+        $TSol->TelSot=$data['TelSot'];
+        $TSol->save();  
+        return User::find([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' =>$data['password'],
+        ]);*/ 
+        
     }
 }
