@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
-use App\Ssolicitante;
+use App\Rol_user;
+use App\Sempresas;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -50,12 +51,12 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|min:5|max:175',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
-            'NuiSot' => 'required|string|min:7|max:12|unique:tsolicitante',
-            'DirSot' => 'required|string|min:10|max:175',
-            'TelSot' => 'required|string|min:10|max:75',
+            'NitEst' => 'required|string|min:7|max:12|unique:tuserestab',
+            'DirEst' => 'required|string|min:10|max:170',
+            'TelEst' => 'required|string|min:10|max:75',            
         ]);
     }
 
@@ -72,33 +73,24 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
-        */ 
-        User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
-        return ['email' => $data['email'],
-        'password' =>$data['password'],];
-        /*
+        */         
         $TUser=new User;
         $TUser->name=$data['name'];
         $TUser->email=$data['email'];
         $TUser->password=Hash::make($data['password']);
         $TUser->save();
-        $TSol=new Ssolicitante;
-        $TSol->IdUseSot=$TUser->id;
-        $TSol->NuiSot=$data['NuiSot'];
-        $TSol->RazSot=$data['name'];
-        $TSol->DirSot=$data['DirSot'];
-        $TSol->EmaSot=$data['email'];
-        $TSol->TelSot=$data['TelSot'];
-        $TSol->save();  
-        return User::find([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' =>$data['password'],
-        ]);*/ 
-        
+        $TEst=new Sempresas;
+        $TEst->IdUsuEst=$TUser->id;
+        $TEst->NitEst=$data['NitEst'];
+        $TEst->RazEst=$data['name'];
+        $TEst->DirEst=$data['DirEst'];
+        $TEst->EmaEst=$data['email'];
+        $TEst->TelEst=$data['TelEst'];
+        $TEst->save(); 
+        $TRol=new Rol_user;
+        $TRol->user_id=$TUser->id;
+        $TRol->role_id=2;       
+        $TRol->save();   
+        return $TUser;        
     }
 }

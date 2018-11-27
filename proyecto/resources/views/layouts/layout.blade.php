@@ -201,17 +201,17 @@
 
         <!-- Contenido de la pagina -->
         <div class="right_col" role="main">
-            <div class="">
-              <div class="page-title">
-                <div class="title">
-                  <h2>Sistema de Información de Manejo de Medicamentos de Control Especial</h2>                
-                </div>
+          <div class="">
+            <div class="page-title">
+              <div class="col-md-12 title_center">
+                <h2>Sistema de Información para el Manejo de Medicamentos de Control Especial</h2>                
               </div>
-              <div class="row"></div>
-              @yield('contenido')
             </div>
-        </div>       
-        
+            <div class="row"></div>
+            <div class="clearfix"></div>
+            @yield('contenido')
+          </div>
+        </div> 
         <!-- /Termina contenido de la pagina -->
         
         <!-- footer content -->
