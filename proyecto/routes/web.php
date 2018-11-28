@@ -156,6 +156,24 @@ Route::middleware(['auth'])->group(function(){
         Route::get('Medicamentos/{med}/edit','MedicController@edit')->name('Medicamentos.edit')
                 ->middleware('permission:Medicamentos.edit');
 
+        //Establecimientos-----------------------------
+        Route::get('Establecimiento','EstablecimientoController@inicio')->name('Establecimiento.inicio')
+                ->middleware('permission:Establecimiento.inicio');
+        Route::post('Establecimiento/store','EstablecimientoController@store')->name('Establecimiento.store')
+                ->middleware('permission:Establecimiento.create');
+        Route::get('Establecimiento','EstablecimientoController@index')->name('Establecimiento.index')
+                ->middleware('permission:Establecimiento.index');
+        Route::get('Establecimiento/create','EstablecimientoController@create')->name('Establecimiento.create')
+                ->middleware('permission:Establecimiento.create');
+        Route::put('Establecimiento/{soi}','EstablecimientoController@update')->name('Establecimiento.update')
+                ->middleware('permission:Establecimiento.edit');
+        Route::get('Establecimiento/{soi}','EstablecimientoController@show')->name('Establecimiento.show')
+                ->middleware('permission:Establecimiento.show');
+        Route::delete('Establecimiento/{soi}','EstablecimientoController@destroy')->name('Establecimiento.destroy')
+                ->middleware('permission:Establecimiento.destroy');
+        Route::get('Establecimiento/{soi}/edit','EstablecimientoController@edit')->name('Establecimiento.edit')
+                ->middleware('permission:Establecimiento.edit');
+        
         //Solicitudes-----------------------------
         Route::get('Solicitud','SolicitudController@inicio')->name('Solicitud.inicio')
                 ->middleware('permission:Solicitud.inicio');

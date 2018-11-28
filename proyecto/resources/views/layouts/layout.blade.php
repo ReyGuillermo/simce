@@ -77,7 +77,10 @@
                       <li><a href="{{ route('Solicitud.index') }}">Crear Solicitud</a></li>
                     @endcan
                     @can('Solicitud.index')
-                      <li><a href="{{ route('Solicitud.index') }}">Ver Solicitudes</a></li>
+                      <li><a href="{{ route('Solicitud.index') }}">Mis Solicitudes</a></li>
+                    @endcan
+                    @can('Establecimiento.index')
+                      <li><a href="{{ route('Establecimiento.index') }}">Mis Establecimientos</a></li>
                     @endcan
                     </ul>
                   </li>

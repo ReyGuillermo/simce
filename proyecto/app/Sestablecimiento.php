@@ -4,17 +4,21 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Tsolicitantes extends Model
+class Sestablecimiento extends Model
 {
-    protected $table = 'dtsolicitante';
+    protected $table = 'testabsucu';
 
-    protected $fillable = ['IdTso', 'NomTso','DesTso'];
+    protected $fillable = ['IdSuc', 'IdUsuSuc','DirEst','IdCiuEst','NomEst','IdPerSuc','IdTipSuc','MaiSuc'];
 
-    protected $primaryKey = 'IdTso';
+    protected $primaryKey = 'IdSuc';
 
     public $timestamps = false;     
     
-    public function RDocumentos(){
-        return $this->belongsToMany(Documentos::class,'ddsolicitados','IdTsoDso','IdTipDso')->wherePivot('EstDso', 1);
-    }            
+    public function RSuc_Per(){
+        return $this->belongsTo(Spersonas::class,'IdPerSuc','IdPer');
+    } 
+    
+    public function RSuc_Ciu(){
+        return $this->belongsTo(Dciudad::class,'IdCiuEst','IdCiu');
+    }
 }
