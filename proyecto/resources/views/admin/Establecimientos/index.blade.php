@@ -51,8 +51,17 @@
                                 <td>{{ $tem->MaiSuc}}</td>
                                 <td>{{ $tem->NomEst}}</td>  
                                 <td>{{ $tem->DirEst}}</td>  
-                                <td>{{ $tem->IdTipSuc}}</td>                            
-                                <td> <a class="btn btn-primary btn-xs" href="{{ route('Establecimiento.edit',$tem->IdSuc) }}"><i class="fa fa-edit "></i></a></td>                                                        
+                                <td>
+                                    @foreach($Tso as $tem1)
+                                        @if($tem->IdTipSuc == $tem1->IdTso)
+                                            {{ $tem1->NomTso}}
+                                        @endif  
+                                    @endforeach
+                                </td>                            
+                                <td> 
+                                    <a class="btn btn-primary btn-xs" href="{{ route('Establecimiento.edit',$tem->IdSuc) }}"><i class="fa fa-edit "></i></a> 
+                                    <a class="btn btn-round btn-success btn-xs" href="{{ route('Solicitud.create',$tem->IdSuc) }}"><i class="fa fa-plus "></i> Solicitud</a>                                    
+                                </td>                                                        
                             </tr>
                         @endforeach
                     </tbody>

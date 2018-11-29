@@ -12,12 +12,8 @@ class Sestablecimiento extends Model
 
     protected $primaryKey = 'IdSuc';
 
-    public $timestamps = false;     
-    
-    public function RSuc_Per(){
-        return $this->belongsTo(Spersonas::class,'IdPerSuc','IdPer');
-    } 
-    
+    public $timestamps = false;
+      
     public function RSuc_Ciu(){
         return $this->belongsTo(Dciudad::class,'IdCiuEst','IdCiu');
     }

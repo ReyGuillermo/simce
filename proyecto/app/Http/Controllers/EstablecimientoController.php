@@ -8,6 +8,9 @@ use App\Spersonas;
 use App\Sestablecimiento;
 use App\Dsolicitantes;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\EstabCRequest;
+use App\Http\Requests\EstabURequest;
+
 class EstablecimientoController extends Controller
 {
     /**
@@ -32,7 +35,7 @@ class EstablecimientoController extends Controller
     {
         $Per=Spersonas::pluck('NuiPer','IdPer');
         $Ciu=Dciudad::pluck('NomCiu','IdCiu'); 
-        $Tso=Dsolicitantes::pluck('NomTso','IdTso');       
+        $Tso=Dsolicitantes::where('IdTso','>',2)->pluck('NomTso','IdTso');       
         return view('admin.Establecimientos.crear')->with(['Per'=>$Per,'Ciu'=>$Ciu,'Tso'=>$Tso]);
     }
 
@@ -42,9 +45,19 @@ class EstablecimientoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(EstabCRequest $request)
     {
-        //
+        $IdUsu = Auth::id();
+        $TId=new Sestablecimiento;
+        $TId->IdUsuSuc=$IdUsu;
+        $TId->DirEst=$request->DirEst;   
+        $TId->IdCiuEst=$request->IdCiuEst;
+        $TId->NomEst=$request->NomEst;
+        $TId->IdTipSuc=$request->IdTipSuc;
+        $TId->MaiSuc=$request->MaiSuc;     
+        $TId->save();
+        return redirect()->route('Establecimiento.index')->with('info','El Establecimiento fué Creado');
+
     }
 
     /**
@@ -66,7 +79,11 @@ class EstablecimientoController extends Controller
      */
     public function edit($id)
     {
-        //
+        $Per=Spersonas::pluck('NuiPer','IdPer');
+        $Ciu=Dciudad::pluck('NomCiu','IdCiu'); 
+        $Tso=Dsolicitantes::where('IdTso','>',2)->pluck('NomTso','IdTso');    
+        $Res=Sestablecimiento::find($id); 
+        return view('admin.Establecimientos.editar')->with(['Res'=>$Res,'Per'=>$Per,'Ciu'=>$Ciu,'Tso'=>$Tso]);
     }
 
     /**
@@ -76,9 +93,16 @@ class EstablecimientoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(EstabURequest $request, $id)
     {
-        //
+        $TId=Sestablecimiento::find($id);
+        $TId->DirEst=$request->DirEst;   
+        $TId->IdCiuEst=$request->IdCiuEst;
+        $TId->NomEst=$request->NomEst;
+        $TId->IdTipSuc=$request->IdTipSuc;
+        $TId->MaiSuc=$request->MaiSuc;     
+        $TId->save();
+        return redirect()->route('Establecimiento.index')->with('info','El Esablecimiento fué Actualizado');
     }
 
     /**

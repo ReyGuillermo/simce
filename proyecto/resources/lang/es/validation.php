@@ -108,7 +108,8 @@ return [
         'TisMed'=>'Tipo de Sustancia','NumMed'=>'Número','DciMed'=>'Denominación Común Internacional',
         'ConMed'=>'Concentración','ForMed'=>'Forma Farmacéutica','ClaMed'=>'Clasificación',
         'UsoMed'=>'Uso','IdTipDso'=>'Tipo de Documento','IdTsoDso'=>'Tipo de Solicitante','EstDso'=>'Estado',
-        'TipTfu'=>'Tipo de Funcionario','DesTfu'=>'Descripción de Tipo de Funcionario'    
+        'TipTfu'=>'Tipo de Funcionario','DesTfu'=>'Descripción de Tipo de Funcionario','MaiSuc'=>'Número de Matricula',
+        'IdTipSuc'=>'Tipo de Establecimiento','NomEst'=>'Nombre','IdCiuEst'=>'Ciudad','DirEst'=>'Dirección'
     ],
 
 ];

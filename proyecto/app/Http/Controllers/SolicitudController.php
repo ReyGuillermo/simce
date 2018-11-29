@@ -8,6 +8,9 @@ use App\Docsolicitados;
 use App\Dsolicitantes;
 use App\Didentificacion;
 use App\Dciudad;
+use App\Stemprep;
+use App\Sestablecimiento;
+use Illuminate\Support\Facades\Auth;
 class SolicitudController extends Controller
 {
     /**
@@ -40,12 +43,21 @@ class SolicitudController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        $Tid=Didentificacion::pluck('NomTid','IdTid');
-        $Ciu=Dciudad::pluck('NomCiu','IdCiu'); 
-        $Tso=Dsolicitantes::pluck('NomTso','IdTso');       
-        return view('admin.Solicitud.crear')->with(['Tid'=>$Tid,'Ciu'=>$Ciu,'Tso'=>$Tso]);
+        $IdUsu = Auth::id();
+        $Rep=Stemprep::with('RRep_Per')->where('IdUsuRep',$IdUsu)->orderby('FecRep','DESC')->first();
+        if(empty($Rep))
+        {
+            $Ban=0;
+        }
+        else
+        {
+            $Ban=1;
+        }
+        $Res=Sestablecimiento::with('Rsuc_Ciu')->where('IdSuc',$id)->first();
+        $Tso=Dsolicitantes::All();       
+        return view('admin.Solicitud.crear')->with(['Ban'=>$Ban,'Res'=>$Res,'Tso'=>$Tso,'Rep'=>$Rep]);
     }
 
     /**

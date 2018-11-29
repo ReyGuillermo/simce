@@ -181,15 +181,15 @@ Route::middleware(['auth'])->group(function(){
                 ->middleware('permission:Solicitud.create');
         Route::get('Solicitud','SolicitudController@index')->name('Solicitud.index')
                 ->middleware('permission:Solicitud.index');
-        Route::get('Solicitud/create','SolicitudController@create')->name('Solicitud.create')
+        Route::get('Solicitud/{Id}/create','SolicitudController@create')->name('Solicitud.create')
                 ->middleware('permission:Solicitud.create');
-        Route::put('Solicitud/{soi}','SolicitudController@update')->name('Solicitud.update')
+        Route::put('Solicitud/{sol}','SolicitudController@update')->name('Solicitud.update')
                 ->middleware('permission:Solicitud.edit');
-        Route::get('Solicitud/{soi}','SolicitudController@show')->name('Solicitud.show')
+        Route::get('Solicitud/{sol}','SolicitudController@show')->name('Solicitud.show')
                 ->middleware('permission:Solicitud.show');
-        Route::delete('Solicitud/{soi}','SolicitudController@destroy')->name('Solicitud.destroy')
+        Route::delete('Solicitud/{sol}','SolicitudController@destroy')->name('Solicitud.destroy')
                 ->middleware('permission:Solicitud.destroy');
-        Route::get('Solicitud/{soi}/edit','SolicitudController@edit')->name('Solicitud.edit')
+        Route::get('Solicitud/{sol}/edit','SolicitudController@edit')->name('Solicitud.edit')
                 ->middleware('permission:Solicitud.edit');
 });
 

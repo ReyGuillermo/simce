@@ -8,7 +8,7 @@ class Spersonas extends Model
 {
     protected $table = 'tpersonas';
 
-    protected $fillable = ['IdPer', 'PnoPer','SnoPer','PapPer', 'SapPer','TipPer','NuiPer','TelPer','EmaPer'];
+    protected $fillable = ['IdPer', 'PnoPer','SnoPer','PapPer', 'SapPer','NuiPer','TelPer','EmaPer'];
 
     protected $primaryKey = 'IdPer';
 

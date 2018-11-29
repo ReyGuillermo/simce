@@ -15,7 +15,6 @@
                 </div>
                 <div class="x_content">
 
-
                     <!-- Smart Wizard -->
                     <p>Debe completar el formualrio para crear la solicitud (Paso 1).</p>
                     <div id="wizard" class="form_wizard wizard_horizontal">
@@ -39,13 +38,51 @@
                           </a>
                         </li>                        
                       </ul>
-                    
-                    <div id="step-1">                
-                {!! Form::open(['route' => 'Solicitud.store','class'=>'form-horizontal']) !!}
+                      <div class="col-md-6 col-xs-12">
+                            <div class="well" style="overflow: auto"> 
+                                <h2>Datos del Solicitante <small>Datos del solicitante</small></h2>                        
+                                <div class="clearfix"></div>
+                                <div class="x_content">
+                                    <h4><strong>Datos del Representante Legal</strong></h4>
+                                    @if($Ban>0)
 
-                    @include('admin.Solicitud.partes.form')
+                                    @else
+                                        <div class="alert alert-danger fade in" role="alert">
+                                            <button type="button" class="close" data-dismiss="danger" aria-label="Close"><span aria-hidden="true">×</span>
+                                            </button>
+                                            <strong>¡No existe Reprentante Legal!</strong><p> El sistema no registra un Representante Legal, si desea puede registralo en el formulario correspondiente.</p>
+                                        </div>
+                                    @endif
+                                    <h4><strong>Datos del Establecimiento</strong></h4>
+                                    <h5><strong>Nombre:</strong> {{ $Res->NomEst }}</h5>
+                                    <h5><strong>Dirección:</strong> {{ $Res->DirEst }}</h5>
+                                    <h5><strong>Ciudad:</strong> {{ $Res->RSuc_Ciu->NomCiu }}</h5>
+                                    <h5><strong>Mat. Inm:</strong> {{ $Res->MaiSuc }}</h5>
+                                    <h5><strong>Tipo:</strong> 
+                                        @foreach ($Tso as $tem)
+                                            @if($tem->IdTso == $Res->IdTipSuc)
+                                                {{ $tem->NomTso }}
+                                            @endif
+                                        @endforeach                                        
+                                    </h5>                                    
+                                </div>                                
+                                @if($Ban>0)
+                                    <a href="{{ route('Solicitud.edit',$Res->IdSuc) }}" class="btn btn-success">Crear Solicitud</a>
+                                @endif
+                            </div>
+                            
+                                
+                        </div>
+                           
+                      
+                    <div class="col-md-6 col-xs-12">
+                        <div class="well" style="overflow: auto">               
+                            {!! Form::open(['route' => 'Solicitud.store','class'=>'form-horizontal']) !!}
 
-                {!! Form::close() !!} 
+                                @include('admin.Solicitud.partes.form')
+
+                            {!! Form::close() !!} 
+                        </div>
                     </div>
                 </div>
             </div>
