@@ -191,5 +191,23 @@ Route::middleware(['auth'])->group(function(){
                 ->middleware('permission:Solicitud.destroy');
         Route::get('Solicitud/{sol}/edit','SolicitudController@edit')->name('Solicitud.edit')
                 ->middleware('permission:Solicitud.edit');
+
+        //Representantes-----------------------------
+        Route::get('Representante','RepresentanteController@inicio')->name('Representante.inicio')
+                ->middleware('permission:Representante.inicio');
+        Route::post('Representante/store','RepresentanteController@store')->name('Representante.store')
+                ->middleware('permission:Representante.create');
+        Route::get('Representante','RepresentanteController@index')->name('Representante.index')
+                ->middleware('permission:Representante.index');
+        Route::get('Representante/{Id}/create','RepresentanteController@create')->name('Representante.create')
+                ->middleware('permission:Representante.create');
+        Route::put('Representante/{sol}','RepresentanteController@update')->name('Representante.update')
+                ->middleware('permission:Representante.edit');
+        Route::get('Representante/{sol}','RepresentanteController@show')->name('Representante.show')
+                ->middleware('permission:Representante.show');
+        Route::delete('Representante/{sol}','RepresentanteController@destroy')->name('Representante.destroy')
+                ->middleware('permission:Representante.destroy');
+        Route::get('Representante/{sol}/edit','RepresentanteController@edit')->name('Representante.edit')
+                ->middleware('permission:Representante.edit');
 });
 

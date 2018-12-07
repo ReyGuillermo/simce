@@ -13,7 +13,7 @@
                 <h2>Modificar Establecimiento</h2>
             </div>
             <div class="col-md-4 col-sm-4 col-xs-4"> 
-                <a class="btn btn-primary btn-sm pull-right" href="{{ route('Establecimiento.index')}}"><i class="fa fa-th-list"></i>Mis Establecimientos</a>                
+                <a class="btn btn-primary btn-sm pull-right" href="{{ route('Establecimiento.index')}}"><i class="fa fa-th-list"></i> Mis Establecimientos</a>                
                 <br><br>
             </div>  
             <div class="clearfix"></div> 

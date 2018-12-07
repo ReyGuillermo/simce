@@ -3,15 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Documentos;
-use App\Docsolicitados;
-use App\Dsolicitantes;
-use App\Didentificacion;
-use App\Dciudad;
+use App\Spersonas;
 use App\Stemprep;
-use App\Sestablecimiento;
+use App\Http\Requests\RepresRequest;
 use Illuminate\Support\Facades\Auth;
-class SolicitudController extends Controller
+class RepresentanteController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -26,16 +22,7 @@ class SolicitudController extends Controller
     
      public function index()
     {
-        //redirecciona a la pantalla inicial        
-        /*$Doc = \DB::table('dtsolicitante')
-        ->join('ddsolicitados', 'IdTsoDso', '=', 'IdTso')
-        ->join('dtdocumento', 'IdTipDso', '=', 'IdTip')                         
-        ->select('dtsolicitante.NomTso', 'dtsolicitante.DesTso', 'dtdocumento.NomTip', 'dtdocumento.DesTip')                      
-        ->orderBy('dtsolicitante.NomTso', 'ASC')
-        ->get();*/        
-        $Doc=Dsolicitantes::with('RDocumentos')->get();        
-        //return $Doc;
-        return view('admin.Solicitud.index')->with(['Doc'=>$Doc]);
+       
     }
 
     /**
@@ -45,19 +32,7 @@ class SolicitudController extends Controller
      */
     public function create($id)
     {
-        $IdUsu = Auth::id();        
-        $Rep=Stemprep::with('RRep_Per')->where('IdUsuRep',$IdUsu)->orderby('FecRep','DESC')->first();
-        if(empty($Rep))
-        {
-            $Ban=0;
-        }
-        else
-        {
-            $Ban=1;
-        }
-        $Res=Sestablecimiento::with('Rsuc_Ciu')->where('IdSuc',$id)->first();
-        $Tso=Dsolicitantes::All();       
-        return view('admin.Solicitud.crear')->with(['Ban'=>$Ban,'Res'=>$Res,'Tso'=>$Tso,'Rep'=>$Rep,'id'=>$id]);
+       
     }
 
     /**
@@ -66,9 +41,38 @@ class SolicitudController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(RepresRequest $request)
     {
-        
+        $TRep=Spersonas::where('NuiPer',$request->NuiPer)->first();  
+        $IdUsu = Auth::id();      
+        if(empty($TRep))
+        {
+            $TId=new Spersonas;
+            $TId->PnoPer=$request->PnoPer; $TId->SnoPer=$request->SnoPer;
+            $TId->PapPer=$request->PapPer; $TId->SapPer=$request->SapPer;
+            $TId->NuiPer=$request->NuiPer; $TId->TelPer=$request->TelPer;
+            $TId->EmaPer=$request->EmaPer; 
+            $TId->save();            
+            $TRe=new Stemprep;
+            $TRe->IdPerRep=$TId->IdPer;
+            $TRe->IdUsuRep=$IdUsu;
+            $TRe->save();
+            return redirect()->action('SolicitudController@create',$request->id)->with('info','El Representante fué creado');
+        }
+        else{            
+            $TId=Spersonas::find($TRep->IdPer);
+            $TId->TelPer=$request->TelPer;$TId->EmaPer=$request->EmaPer; 
+            $TId->save();
+            $TRea=Stemprep::where('IdUsuRep',$IdUsu)->orderby('FecRep','DESC')->first();
+            if($TRea->IdPerRep<>$TId->IdPer)
+            {
+                $TRe=new Stemprep;
+                $TRe->IdPerRep=$TId->IdPer;
+                $TRe->IdUsuRep=$IdUsu;
+                $TRe->save();
+            }
+            return redirect()->action('SolicitudController@create',$request->id)->with('info','El Representante fué Modificado');
+        }
     }
 
     /**

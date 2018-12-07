@@ -8,17 +8,13 @@
 @section('contenido') 
 <br>  
     <div class="row">
-        <div class="col-md-5 col-xs-12">
-            @include('admin.Solicitud.partes.error')
-            @include('admin.Solicitud.partes.info')
-        </div> 
         <div class="col-md-12 col-xs-12">
             <div class="x_panel">
-                <div class="col-md-8 col-sm-8 col-xs-8">
-                    <h2>Información de la Solicitud</h2>
+                <div class="x_title">
+                    <strong>Información de la Solicitud</strong>
                 </div>
                 <div class="col-md-4 col-sm-4 col-xs-4"> 
-                    <a class="btn btn-primary btn-sm pull-right" href="{{ route('Establecimiento.index')}}"><i class="fa fa-th-list"></i> Mis Establecimientos</a>                
+                    <a class="btn btn-primary btn-sm pull-right" href="{{ route('Solicitudes.index')}}"><i class="fa fa-th-list"></i> Mis Solicitudes</a>                
                     <br><br>
                 </div>  
                 <div class="clearfix"></div>  
@@ -54,13 +50,7 @@
                                 <div class="x_content">
                                     <h4><strong>Datos del Representante Legal</strong></h4>
                                     @if($Ban>0)
-                                       <div class="alert alert-info">
-                                            <strong>Nombre: </strong> {{ $Rep->RRep_Per->PnoPer }} {{ $Rep->RRep_Per->SnoPer }} {{ $Rep->RRep_Per->PapPer }} {{ $Rep->RRep_Per->SapPer }}<br>
-                                            <strong>Identificación: </strong> {{ $Rep->RRep_Per->NuiPer }}<br>
-                                            <strong>Email: </strong> {{ $Rep->RRep_Per->EmaPer }}<br>
-                                            <strong>Teléfono: </strong> {{ $Rep->RRep_Per->TelPer }}
-                                        </div>  
-                                        <p><i>Si desea crear o cambiar el representante legal, por favor complete el formulario correspondiente</i></p>                                  
+
                                     @else
                                         <div class="alert alert-danger fade in" role="alert">
                                             <button type="button" class="close" data-dismiss="danger" aria-label="Close"><span aria-hidden="true">×</span>
@@ -82,22 +72,26 @@
                                     </h5>                                    
                                 </div>                                
                                 @if($Ban>0)
-                                    <a href="{{ route('Solicitud.store',$Res->IdSuc) }}" class="btn btn-success">Crear Solicitud</a>
+                                    <a href="{{ route('Solicitud.edit',$Res->IdSuc) }}" class="btn btn-success">Crear Solicitud</a>
                                 @endif
                             </div>
                         </div>
                     <div class="col-md-6 col-xs-12">
                         <div class="well" style="overflow: auto">               
-                            {!! Form::open(['route' => 'Representante.store','class'=>'form-horizontal']) !!}
+                            {!! Form::open(['route' => 'Solicitud.store','class'=>'form-horizontal']) !!}
 
-                                @include('admin.Representante.partes.form')
+                                @include('admin.Solicitud.partes.form')
 
                             {!! Form::close() !!} 
                         </div>
                     </div>
                 </div>
             </div>
-        </div>        
+        </div>
+        <div class="col-md-5 col-xs-12">
+            @include('admin.Solicitud.partes.error')
+            @include('admin.Solicitud.partes.info')
+        </div> 
     </div> 
 @stop
 

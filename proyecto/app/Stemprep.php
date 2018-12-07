@@ -15,6 +15,6 @@ class Stemprep extends Model
     public $timestamps = false; 
 
     public function RRep_Per(){
-        return $this->belongsTo(Spersonas::class,'IdPer','IdPerRep');
+        return $this->belongsTo(Spersonas::class,'IdPerRep','IdPer');
     }
 }
