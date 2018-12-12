@@ -55,7 +55,7 @@
                                         <div class="alert alert-danger fade in" role="alert">
                                             <button type="button" class="close" data-dismiss="danger" aria-label="Close"><span aria-hidden="true">×</span>
                                             </button>
-                                            <strong>¡No existe Reprentante Legal!</strong><p> El sistema no registra un Representante Legal, si desea puede registralo en el formulario correspondiente.</p>
+                                            <strong>¡No existe Representante Legal!</strong><p> El sistema no registra un Representante Legal, si desea puede registralo en el formulario correspondiente.</p>
                                         </div>
                                     @endif
                                     <h4><strong>Datos del Establecimiento</strong></h4>
@@ -72,12 +72,12 @@
                                     </h5>                                    
                                 </div>                                
                                 @if($Ban>0)
-                                    <a href="{{ route('Solicitud.edit',$Res->IdSuc) }}" class="btn btn-success">Crear Solicitud</a>
+                                    <a href="{{ route('Solicitud.store',$Res->IdSuc) }}" class="btn btn-success">Crear Solicitud</a>
                                 @endif
                             </div>
                         </div>
-                    <div class="col-md-6 col-xs-12">
-                        <div class="well" style="overflow: auto">               
+                    <div class="col-md-6 col-xs-12">                        
+                        <div class="well" style="overflow: auto">                                                                 
                             {!! Form::open(['route' => 'Solicitud.store','class'=>'form-horizontal']) !!}
 
                                 @include('admin.Solicitud.partes.form')

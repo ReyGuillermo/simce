@@ -29,21 +29,21 @@
                     <div id="wizard" class="form_wizard wizard_horizontal">
                       <ul class="wizard_steps">
                         <li>
-                          <a href="#step-1">
+                          <a href="#">
                             <span class="step_no">1</span>
                             <span class="step_descr">
-                                              Paso 1<br />
-                                              <small>Paso 1 Datos del establecimiento</small>
-                                          </span>
+                                Paso 1<br />
+                                <small>Paso 1 Datos del establecimiento</small>
+                            </span>
                           </a>
                         </li>
                         <li>
                           <a href="#">
                             <span class="step_no">2</span>
                             <span class="step_descr">
-                                              Paso 2<br />
-                                              <small>Paso 2 Anexar Documentación</small>
-                                          </span>
+                                Paso 2<br />
+                                <small>Paso 2 Anexar Documentación</small>
+                            </span>
                           </a>
                         </li>                        
                       </ul>
@@ -79,11 +79,8 @@
                                                 {{ $tem->NomTso }}
                                             @endif
                                         @endforeach                                        
-                                    </h5>                                    
-                                </div>                                
-                                @if($Ban>0)
-                                    <a href="{{ route('Solicitud.store',$Res->IdSuc) }}" class="btn btn-success">Crear Solicitud</a>
-                                @endif
+                                    </h5>                                                                   
+                                </div>
                             </div>
                         </div>
                     <div class="col-md-6 col-xs-12">
@@ -93,6 +90,26 @@
                                 @include('admin.Representante.partes.form')
 
                             {!! Form::close() !!} 
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-xs-12">
+                        <div class="well" style="overflow: auto">               
+                            <h4><strong>Documentación Requerida para estos establecimientos:</strong></h4>
+                                <ul class="to_do">                                        
+                                @foreach ($Dos as $tem)
+                                    <li>
+                                        <p><strong>{{ $tem->RDos_Doc->NomTip }}</strong><br>{{ $tem->RDos_Doc->DesTip }}</p>
+                                    </li>                                       
+                                @endforeach
+                                </ul>
+                             
+                            @if($Ban>0)
+                                {!! Form::open(['route' => 'Solicitud.store','class'=>'form-horizontal']) !!}
+
+                                    @include('admin.Solicitud.partes.form')
+
+                                {!! Form::close() !!}                                     
+                            @endif
                         </div>
                     </div>
                 </div>

@@ -74,7 +74,7 @@
                   <li><a><i class="fa fa-edit"></i> Solicitudes <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                     @can('Solicitud.create')
-                      <li><a href="{{ route('Solicitud.index') }}">Crear Solicitud</a></li>
+                      <li><a href="{{ route('Establecimiento.index') }}">Crear Solicitud</a></li>
                     @endcan
                     @can('Solicitud.index')
                       <li><a href="{{ route('Solicitud.index') }}">Mis Solicitudes</a></li>

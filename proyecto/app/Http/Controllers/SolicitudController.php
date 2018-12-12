@@ -11,6 +11,7 @@ use App\Dciudad;
 use App\Stemprep;
 use App\Sestablecimiento;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 class SolicitudController extends Controller
 {
     /**
@@ -56,8 +57,9 @@ class SolicitudController extends Controller
             $Ban=1;
         }
         $Res=Sestablecimiento::with('Rsuc_Ciu')->where('IdSuc',$id)->first();
-        $Tso=Dsolicitantes::All();       
-        return view('admin.Solicitud.crear')->with(['Ban'=>$Ban,'Res'=>$Res,'Tso'=>$Tso,'Rep'=>$Rep,'id'=>$id]);
+        $Tso=Dsolicitantes::All();
+        $TDos=Docsolicitados::with('RDos_Doc')->where('IdTsoDso',$Res->IdTipSuc)->where('EstDso','1')->get();             
+        return view('admin.Solicitud.crear')->with(['Ban'=>$Ban,'Res'=>$Res,'Tso'=>$Tso,'Rep'=>$Rep,'id'=>$id,'Dos'=>$TDos]);
     }
 
     /**
@@ -68,7 +70,17 @@ class SolicitudController extends Controller
      */
     public function store(Request $request)
     {
-        
+        $date = Carbon::now()->toRfc2822String();
+        return $date;
+        $IdUsu = Auth::id();
+        $TEst=Sestablecimiento::where('IdSuc',$request->IdSucSol)->where('IdUsuSuc',$IdUsu)->first();
+        if(empty($TEst))
+        {
+            return redirect()->route('Establecimiento.index')->with('info','No se puede crear la solicitud, por favor intentelo de nuevo');
+        }
+        else {
+           
+        }
     }
 
     /**

@@ -43,6 +43,7 @@ class RepresentanteController extends Controller
      */
     public function store(RepresRequest $request)
     {
+        return $request;
         $TRep=Spersonas::where('NuiPer',$request->NuiPer)->first();  
         $IdUsu = Auth::id();      
         if(empty($TRep))
@@ -64,13 +65,23 @@ class RepresentanteController extends Controller
             $TId->TelPer=$request->TelPer;$TId->EmaPer=$request->EmaPer; 
             $TId->save();
             $TRea=Stemprep::where('IdUsuRep',$IdUsu)->orderby('FecRep','DESC')->first();
-            if($TRea->IdPerRep<>$TId->IdPer)
+            if(empty($TRea))
             {
                 $TRe=new Stemprep;
                 $TRe->IdPerRep=$TId->IdPer;
                 $TRe->IdUsuRep=$IdUsu;
                 $TRe->save();
             }
+            else
+            {
+                if($TRea->IdPerRep<>$TId->IdPer)
+                {
+                    $TRe=new Stemprep;
+                    $TRe->IdPerRep=$TId->IdPer;
+                    $TRe->IdUsuRep=$IdUsu;
+                    $TRe->save();
+                }
+            }            
             return redirect()->action('SolicitudController@create',$request->id)->with('info','El Representante fué Modificado');
         }
     }

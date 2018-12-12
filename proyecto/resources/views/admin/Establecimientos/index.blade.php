@@ -21,16 +21,19 @@
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="btn-group" role="group" aria-label="Button group">
             <br>
-            @include('admin.Documentos.partes.error')
-            @include('admin.Documentos.partes.info')
-        </div>
+            @include('admin.Establecimientos.partes.error')
+            @include('admin.Establecimientos.partes.info')
+        </div>        
+        <p class="text-muted well well-xs no-shadow bg-purple" style="margin-top: 10px;">
+            <i class="fa fa-bell"></i> Puede radicar solicitudes a partir de los establecimientos creados, tenga en cuenta que los datos del establecimiento deben coincidir con el <strong>Registro Mercantil</strong> Actualizado.
+        </p>
         <div class="x_panel">
             <div class="x_title">
                 <div class="col-md-8 col-sm-8 col-xs-8">
                     <h2>Mis Establecimientos</h2>
                 </div>
                 <div class="col-md-4 col-sm-4 col-xs-4"> 
-                    <a class="btn btn-success btn-sm pull-right" href="{{ route('Establecimiento.create') }}"><i class="fa fa-plus"></i> Agregar</a>                    
+                    <a class="btn btn-success btn-sm pull-right" href="{{ route('Establecimiento.create') }}" alt="Crear Establecimiento"><i class="fa fa-plus"></i> Agregar</a>                    
                 </div>                              
                 <div class="clearfix"></div>
             </div>
@@ -60,7 +63,7 @@
                                 </td>                            
                                 <td> 
                                     <a class="btn btn-primary btn-xs" href="{{ route('Establecimiento.edit',$tem->IdSuc) }}"><i class="fa fa-edit "></i></a> 
-                                    <a class="btn btn-round btn-success btn-xs" href="{{ route('Solicitud.create',$tem->IdSuc) }}"><i class="fa fa-plus "></i> Solicitud</a>                                    
+                                    <a class="btn btn-round btn-success btn-xs" href="{{ route('Solicitud.create',$tem->IdSuc) }}"><i class="fa fa-plus "></i> Crear Solicitud</a>                                    
                                 </td>                                                        
                             </tr>
                         @endforeach

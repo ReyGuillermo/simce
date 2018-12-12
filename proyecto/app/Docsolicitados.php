@@ -14,9 +14,9 @@ class Docsolicitados extends Model
 
     public $timestamps = false;
     
-    public function RelDocumentos()
+    public function RDos_Doc()
     {
-        return $this->hasMany(Documentos::class, 'IdTip','IdTipDso');        
+        return $this->belongsTo(Documentos::class, 'IdTipDso','IdTip');        
     }
 
     public function RelSolicitantes()
